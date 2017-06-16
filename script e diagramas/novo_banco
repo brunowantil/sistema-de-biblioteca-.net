@@ -1,0 +1,55 @@
+CREATE TABLE `Livros` (
+	`Id_Livro` INT NOT NULL AUTO_INCREMENT,
+	`Nome_Livro` varchar(100) NOT NULL,
+	`Autor_Livro` varchar(50) NOT NULL,
+	`Ano_Livro` INT NOT NULL,
+	`Genero_Livro` varchar(50) NOT NULL,
+	`Editora_Livro` varchar(50) NOT NULL,
+	`Paginas_Livro` varchar(50) NOT NULL,
+	`Status_Livro` varchar(1) NOT NULL,
+	`Isbn_Livro` varchar(50) NOT NULL,
+	PRIMARY KEY (`Id_Livro`)
+);
+
+CREATE TABLE `Funcionarios` (
+	`Id_Funcionario` INT NOT NULL AUTO_INCREMENT,
+	`Nome_Funcionario` varchar(100) NOT NULL,
+	`Endereco_Funcionario` varchar(50) NOT NULL,
+	`Cidade_Funcionario` varchar(50) NOT NULL,
+	`Estado_Funcionario` varchar(50) NOT NULL,
+	`Telefone_Funcionario` varchar(50) NOT NULL,
+	`Cargo_Funcionario` varchar(50) NOT NULL,
+	`Data_Admissao_Funcionario` DATE NOT NULL,
+	`Data_Demissao_Funcionario` DATE,
+	`CPF` INT(11) NOT NULL UNIQUE,
+	PRIMARY KEY (`Id_Funcionario`)
+);
+
+CREATE TABLE `Clientes` (
+	`Id_Cliente` INT NOT NULL AUTO_INCREMENT,
+	`Nome_Cliente` varchar(100) NOT NULL,
+	`Endereco_Cliente` varchar(50) NOT NULL,
+	`Cidade_Cliente` varchar(50) NOT NULL,
+	`Estado_Cliente` varchar(50) NOT NULL,
+	`Telefone_Cliente` varchar(50) NOT NULL,
+	`Status_Cliente` varchar(1) NOT NULL,
+	`CPF` INT(11) NOT NULL UNIQUE,
+	PRIMARY KEY (`Id_Cliente`)
+);
+
+CREATE TABLE `Locacao` (
+	`Id_locacao` INT NOT NULL AUTO_INCREMENT,
+	`Id_cli` INT NOT NULL,
+	`Id_func` INT NOT NULL,
+	`Id_liv` INT NOT NULL,
+	`dt_locacao` DATE NOT NULL,
+	`dt_devolucao` DATE NOT NULL,
+	PRIMARY KEY (`Id_locacao`)
+);
+
+ALTER TABLE `Livros` ADD CONSTRAINT `Livros_fk0` FOREIGN KEY (`Id_Livro`) REFERENCES `Locacao`(`Id_liv`);
+
+ALTER TABLE `Funcionarios` ADD CONSTRAINT `Funcionarios_fk0` FOREIGN KEY (`Id_Funcionario`) REFERENCES `Locacao`(`Id_func`);
+
+ALTER TABLE `Clientes` ADD CONSTRAINT `Clientes_fk0` FOREIGN KEY (`Id_Cliente`) REFERENCES `Locacao`(`Id_cli`);
+
